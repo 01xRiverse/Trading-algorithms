@@ -28,5 +28,10 @@ You can use this code to test out the max possible profits you can achieve in a 
 NOTE:You have to adjust the number candles while fetching data in the code because vwap values are calculated based on the start of the day.
 
 
+---------------------------
+RESULT=FAIL
+---------------------------
+
+
 WILL DEVELOP MORE STRATERGIES AND I AM JUST A BEGINER SO NO HATE ON LMAOO.
 Until Next time!!

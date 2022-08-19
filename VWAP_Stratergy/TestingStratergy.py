@@ -15,8 +15,8 @@ def MyVwap(df):
 	ResVWAP={}
 	ResVWAP["time"]=[]
 	ResVWAP["VWAP"]=[]
-
 	for cand in range(df.shape[0]):
+
 
 		CumTPxVol+=((df['high'][cand]+df['low'][cand]+df['close'][cand])/3)*df['volume'][cand]
 		CumVol+=df['volume'][cand]
@@ -242,7 +242,6 @@ for value in range(vwap.shape[0]):
 
 
 print(balance,position)
-
 
 
 
