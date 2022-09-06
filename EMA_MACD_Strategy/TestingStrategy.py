@@ -16,7 +16,7 @@ df = pd.DataFrame(bars, columns=['time', 'open', 'high', 'low', 'close', 'volume
 
 #Trade variables
 balance=100
-leverage=10
+leverage=15
 SL=10
 TP=10
 isFirstTrade=True
@@ -37,6 +37,8 @@ failed=0
 MACD=ta.macd(df["close"],12,26,9)
 ema9=ta.ema(df["close"],9)
 ema21=ta.ema(df["close"],21)
+# ema9=ta.ema(df["close"],7)
+# ema21=ta.ema(df["close"],14)
 
 
 for i in range(MACD.shape[0]):
@@ -86,17 +88,22 @@ for i in range(MACD.shape[0]):
 			if(ema9[i]<ema21[i]):
 				#close trade code
 				if(df['open'][i]>entry):
-					balance=balance*(((df['open'][i]-entry)/entry)*10+1)
+					balance=balance*(1+((df['open'][i]-entry)/entry)*leverage)
 					TradeIsOpen=False
 				else:
-					balance=balance*(1-((entry-df['open'][i])/entry)*10)
+					balance=balance*(1-((entry-df['open'][i])/entry)*leverage)
 					TradeIsOpen=False
 				failed+=1
 				continue
 
+			if(((entry-df['low'][i])/entry)*(100*leverage)>=10):
+				#close trade code
+				TradeIsOpen=False
+				balance=0.9*balance
+				misses+=1
+				continue
 
-
-			if((df['high'][i]-entry)/entry>=.01):
+			if(((df['high'][i]-entry)/entry)*(100*leverage)>=10):
 				#close trade code
 				TradeIsOpen=False
 				balance=1.1*balance
@@ -104,12 +111,7 @@ for i in range(MACD.shape[0]):
 				continue
 
 
-			if((entry-df['low'][i])/entry>=0.01):
-				#close trade code
-				TradeIsOpen=False
-				balance=0.9*balance
-				misses+=1
-				continue
+
 
 
 
@@ -118,15 +120,22 @@ for i in range(MACD.shape[0]):
 			if(ema9[i]>ema21[i]):
 				#close trade code
 				if(df['open'][i]<entry):
-					balance=balance*(((entry-df['open'][i])/entry)*10+1)
+					balance=balance*(1+((entry-df['open'][i])/entry)*leverage)
 					TradeIsOpen=False
 				else:
-					balance=balance*(1-((df['open'][i]-entry)/entry)*10)
+					balance=balance*(1-((df['open'][i]-entry)/entry)*leverage)
 					TradeIsOpen=False
 				failed+=1
 				continue
 
-			if((entry-df['low'][i])/entry>=0.01):
+			if(((df['high'][i]-entry))/entry*(100*leverage)>=10):
+				#close trade code
+				TradeIsOpen=False
+				balance=0.9*balance
+				misses+=1
+				continue
+
+			if(((entry-df['low'][i])/entry)*(100*leverage)>=10):
 				#close trade code 
 				TradeIsOpen=False
 				balance=1.1*balance
@@ -134,12 +143,7 @@ for i in range(MACD.shape[0]):
 				continue
 
 
-			if((df['high'][i]-entry)/entry>=.01):
-				#close trade code
-				TradeIsOpen=False
-				balance=0.9*balance
-				misses+=1
-				continue
+
 
 
 
