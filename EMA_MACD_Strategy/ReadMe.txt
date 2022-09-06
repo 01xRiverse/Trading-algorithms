@@ -1,8 +1,8 @@
 This Strategy involves the use of 2 indicators.
-EMA(9,21)
+EMA(9 and 21)
 MACD
 
-This strategy can be used on any time frame but its better to use in 15 mins time frame.
+This strategy can be used on any time frame but its better to use this in 15 mins time frame.
 
 
 So we basically enter a long trade when 9 EMA over takes 21 EMA and the MACD values are above 0.
@@ -12,7 +12,7 @@ Risk reward ratio is 1:1.
 
 Tp levels are 1 percent with 10x leverage.
 
-In order to avoid the trade completely collapsing , we exit the trade whenever the EMAs overlapping contradicts the current position .
+In order to avoid the trade from completely collapsing , we exit the trade whenever the EMAs overlapping contradicts the current position .
 
 
 Suprisingly this trading strategy works.Returns 86% profit on the WORST DAYS(10 DAYS).
