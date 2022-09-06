@@ -16,7 +16,7 @@ df = pd.DataFrame(bars, columns=['time', 'open', 'high', 'low', 'close', 'volume
 
 #Trade variables
 balance=100
-leverage=15
+leverage=50
 SL=10
 TP=10
 isFirstTrade=True
