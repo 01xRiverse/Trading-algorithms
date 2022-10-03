@@ -8,17 +8,19 @@ import pandas_ta as ta
 
 #Fetching and storing values
 exchange = ccxt.binance()
-bars = exchange.fetch_ohlcv('BTC/USDT', timeframe='15m', limit=1000)
+bars = exchange.fetch_ohlcv('BTC/USDT', timeframe="4h", limit=1000)
 df = pd.DataFrame(bars, columns=['time', 'open', 'high', 'low', 'close', 'volume'])
-
 
 
 
 #Trade variables
 balance=100
-leverage=50
+leverage=3
 SL=10
 TP=10
+
+
+#states
 isFirstTrade=True
 BullishOverlap=False
 BearishOverlap=False
@@ -39,7 +41,6 @@ ema9=ta.ema(df["close"],9)
 ema21=ta.ema(df["close"],21)
 # ema9=ta.ema(df["close"],7)
 # ema21=ta.ema(df["close"],14)
-
 
 for i in range(MACD.shape[0]):
 	#skipping empty values of the indicators
@@ -85,7 +86,7 @@ for i in range(MACD.shape[0]):
 
 		if(BullMode):
 
-			if(ema9[i]<ema21[i]):
+			if(ema9[i-1]<ema21[i-1]):
 				#close trade code
 				if(df['open'][i]>entry):
 					balance=balance*(1+((df['open'][i]-entry)/entry)*leverage)
@@ -96,17 +97,17 @@ for i in range(MACD.shape[0]):
 				failed+=1
 				continue
 
-			if(((entry-df['low'][i])/entry)*(100*leverage)>=10):
+			if(((entry-df['low'][i])/entry)*(100*leverage)>=SL):
 				#close trade code
 				TradeIsOpen=False
-				balance=0.9*balance
+				balance=(1-(SL/100))*balance
 				misses+=1
 				continue
 
-			if(((df['high'][i]-entry)/entry)*(100*leverage)>=10):
+			if(((df['high'][i]-entry)/entry)*(100*leverage)>=TP):
 				#close trade code
 				TradeIsOpen=False
-				balance=1.1*balance
+				balance=(1+(TP/100))*balance
 				hits+=1
 				continue
 
@@ -117,7 +118,7 @@ for i in range(MACD.shape[0]):
 
 
 		if(BearMode):
-			if(ema9[i]>ema21[i]):
+			if(ema9[i-1]>ema21[i-1]):
 				#close trade code
 				if(df['open'][i]<entry):
 					balance=balance*(1+((entry-df['open'][i])/entry)*leverage)
@@ -128,17 +129,17 @@ for i in range(MACD.shape[0]):
 				failed+=1
 				continue
 
-			if(((df['high'][i]-entry))/entry*(100*leverage)>=10):
+			if(((df['high'][i]-entry))/entry*(100*leverage)>=SL):
 				#close trade code
 				TradeIsOpen=False
-				balance=0.9*balance
+				balance=(1-(SL/100))*balance
 				misses+=1
 				continue
 
-			if(((entry-df['low'][i])/entry)*(100*leverage)>=10):
+			if(((entry-df['low'][i])/entry)*(100*leverage)>=TP):
 				#close trade code 
 				TradeIsOpen=False
-				balance=1.1*balance
+				balance=(1+(TP/100))*balance
 				hits+=1
 				continue
 
