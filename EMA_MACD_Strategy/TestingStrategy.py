@@ -61,7 +61,7 @@ for i in range(MACD.shape[0]):
 
 
 	if(not TradeIsOpen):
-		if(ema9[i]>ema21[i] and not BullishOverlap and MACD['MACDh_12_26_9'][i]>0 and MACD["MACDs_12_26_9"][i]>0 ):
+		if(ema9[i-1]>ema21[i-1] and not BullishOverlap and MACD['MACDh_12_26_9'][i]>0 and MACD["MACDs_12_26_9"][i]>0 ):
 			entry=df["open"][i]
 			BullishOverlap=True
 			TradeIsOpen=True
@@ -71,7 +71,7 @@ for i in range(MACD.shape[0]):
 			trades+=1
 
 
-		if(ema9[i]<ema21[i] and not BearishOverlap and MACD['MACDh_12_26_9'][i]<0 and MACD["MACDs_12_26_9"][i]<0):
+		if(ema9[i-1]<ema21[i-1] and not BearishOverlap and MACD['MACDh_12_26_9'][i]<0 and MACD["MACDs_12_26_9"][i]<0):
 			entry=df["open"][i]
 			BearishOverlap=True
 			TradeIsOpen=True
