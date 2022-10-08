@@ -14,8 +14,7 @@ def ShortCall():
 	ema21=ta.ema(df["close"],21)
 
 	#evaluating indicator values for Short call
-	if(MACD['MACDh_12_26_9'][1000-1]<0 and MACD["MACDs_12_26_9"][1000-1]<0  and ema9[1000-2] < ema21[1000-2]):
+	if(MACD['MACD_12_26_9'][1000-1]<0 and MACD["MACDs_12_26_9"][1000-1]<0  and ema9[1000-2] < ema21[1000-2]):
 		return True
 	return False
 
-print(ShortCall())

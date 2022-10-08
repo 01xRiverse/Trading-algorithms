@@ -11,11 +11,9 @@ def LongCall():
 	#computing indicator values
 	MACD=ta.macd(df["close"],12,26,9)
 	ema9=ta.ema(df["close"],9)
-	ema21=ta.ema(df["close"],21)
-
+	ema21=ta.ema(df["close"],21) 
 	#evaluating indicator values for Long call
-	if(MACD['MACDh_12_26_9'][1000-1]>0 and MACD["MACDs_12_26_9"][1000-1]>0  and ema9[1000-2] > ema21[1000-2]):
+	if(MACD['MACD_12_26_9'][1000-1]>0 and MACD["MACDs_12_26_9"][1000-1]>0  and ema9[1000-2] > ema21[1000-2]):
 		return True
 	return False
 
-print(LongCall())
