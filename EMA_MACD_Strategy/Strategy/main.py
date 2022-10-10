@@ -2,7 +2,6 @@ import ccxt
 import time
 import schedule
 from binance.client import Client
-from decouple import config
 from BinanceRequests.TradeIsActive import TradeIsActive
 from BinanceRequests.MakeTrade import MakeTrade
 from BinanceRequests.CancelTrade import CancelTrade
@@ -14,7 +13,7 @@ import os
 
 def Check():
 	#creating a client
-	client=Client(api_key=config("testnet_api_key"),api_secret=config("testnet_api_secret"),testnet=True)
+	client=Client(api_key=os.getenv("testnet_api_key"),api_secret=os.getenv("testnet_api_secret"),testnet=True)
 
 	#checking if a trade is active 
 	if TradeIsActive(client):
@@ -48,6 +47,7 @@ schedule.every().day.at("01:30").do(Check)
 
 
 #executes Check function for every 4 hours
+print("Started")
 while True:
 		schedule.run_pending()
 		time.sleep(1)

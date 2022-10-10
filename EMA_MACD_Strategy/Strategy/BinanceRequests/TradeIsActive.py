@@ -1,7 +1,5 @@
 import requests
 from binance.client import Client
-from decouple import config
-import pandas as pd
 
 def TradeIsActive(client):
 	symbol="BTCUSDT"

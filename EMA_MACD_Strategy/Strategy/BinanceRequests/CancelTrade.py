@@ -1,5 +1,4 @@
 from binance.client import Client
-from  decouple import config
 
 
 

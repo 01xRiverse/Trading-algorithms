@@ -1,6 +1,5 @@
 import os
 from binance.client import Client
-from decouple import config
 
 
 #CHANCE ON INSUFFICIENT FUNDS ON LINE 23
