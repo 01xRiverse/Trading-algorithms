@@ -24,8 +24,9 @@ def MakeTrade(client,postion):
 			adjustleverage+=0.1
 	#updating SL and TP
 	try:
-		stoploss=client.futures_create_order(symbol=symbol,side="SELL",type="STOP_MARKET" if postion=="LONG" else "TAKE_PROFIT_MARKET",stopPrice=str(int(mark_price*0.9)) if postion=="LONG" else str(int(mark_price*1.1)),closePosition=True)
-		takeprofit=client.futures_create_order(symbol=symbol,side="SELL",type="TAKE_PROFIT_MARKET" if postion=="LONG" else "STOP_MARKET",stopPrice=str(int(mark_price*1.1)) if postion=="LONG" else str(int(mark_price*0.9)),closePosition=True)
+		mark_price=round(float(client.futures_account()["positions"][155]["entryPrice"]))
+		stoploss=client.futures_create_order(symbol=symbol,side="SELL" if postion=="LONG" else "BUY" ,type="STOP_MARKET" ,stopPrice=str(int(mark_price*0.9677)) if postion=="LONG" else str(int(mark_price*1.0333)),closePosition=True)
+		takeprofit=client.futures_create_order(symbol=symbol,side="SELL" if postion=="LONG" else "BUY" ,type="TAKE_PROFIT_MARKET",stopPrice=str(int(mark_price*1.0333)) if postion=="LONG" else str(int(mark_price*0.9677)),closePosition=True)
 
 	except:
 		print("Trade missed due leverage issuse")
