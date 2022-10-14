@@ -11,8 +11,8 @@ from TradeCalls.LongTrendChange import LongTrendChange
 from TradeCalls.ShortTrendChange import ShortTrendChange
 from decouple import config
 from datetime import datetime
-
-
+import warnings
+warnings.filterwarnings("ignore")
 
 #global variables
 Long="False"
@@ -57,7 +57,7 @@ def Check():
 	else:
 		print("Time:",datetime.now().strftime("%H:%M:%S"))
 		print("No Trade is acitve.")
-		print(int(client.futures_account_balance()[3]['balance'].split(".")[0]))
+		print(int(client.futures_account_balance()[6]['balance'].split(".")[0]))
 		print("*********************")
 
 

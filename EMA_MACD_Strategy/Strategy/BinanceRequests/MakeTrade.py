@@ -14,7 +14,7 @@ def MakeTrade(client,postion):
 	mark_price=int(client.futures_mark_price(symbol=symbol)["markPrice"].split(".")[0])
 
 	#fetching balance
-	balance=int(client.futures_account_balance()[3]['balance'].split(".")[0])
+	balance=int(client.futures_account_balance()[6]['balance'].split(".")[0])
 
 	adjustleverage=0.1
 	while(adjustleverage!=0.6):
@@ -25,8 +25,8 @@ def MakeTrade(client,postion):
 	#updating SL and TP
 	try:
 		mark_price=round(float(client.futures_account()["positions"][158]["entryPrice"]))
-		stoploss=client.futures_create_order(symbol=symbol,side="SELL" if postion=="LONG" else "BUY" ,type="STOP_MARKET" ,stopPrice=str(int(mark_price*0.9677)) if postion=="LONG" else str(int(mark_price*1.0333)),closePosition=True)
-		takeprofit=client.futures_create_order(symbol=symbol,side="SELL" if postion=="LONG" else "BUY" ,type="TAKE_PROFIT_MARKET",stopPrice=str(int(mark_price*1.0333)) if postion=="LONG" else str(int(mark_price*0.9677)),closePosition=True)
+		stoploss=client.futures_create_order(symbol=symbol,side="SELL" if postion=="LONG" else "BUY" ,type="STOP_MARKET" ,stopPrice=str(int(mark_price*0.9677)) if postion=="LONG" else str(int(mark_price*1.0334)),closePosition=True)
+		takeprofit=client.futures_create_order(symbol=symbol,side="SELL" if postion=="LONG" else "BUY" ,type="TAKE_PROFIT_MARKET",stopPrice=str(int(mark_price*1.0334)) if postion=="LONG" else str(int(mark_price*0.9677)),closePosition=True)
 
 	except:
 		print("Trade missed due leverage issuse")
