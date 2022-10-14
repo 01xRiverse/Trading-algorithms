@@ -22,7 +22,7 @@ def Check():
 	global Short,Long
 
 	#creating a client
-	client=Client(api_key=config("testnet_api_key"),api_secret=config("testnet_api_secret"),testnet=True)
+	client=Client(api_key=config("api_key"),api_secret=config("api_secret"),testnet=False)
 
 	# checking if a trade is active 
 	if TradeIsActive(client):
@@ -49,7 +49,7 @@ def Check():
 	print("Trade Status:-")
 	if(TradeIsActive(client)):
 		print("Time:",datetime.now().strftime("%H:%M:%S"))
-		position=client.futures_account()["positions"][155]
+		position=client.futures_account()["positions"][158]
 		print("PNL:",position["unrealizedProfit"])
 		print("Margin:",position["initialMargin"])
 		print("*********************")
@@ -63,12 +63,12 @@ def Check():
 
 
 #Scheduling check function for every 4 hours
-schedule.every().day.at("05:30").do(Check)
-schedule.every().day.at("09:30").do(Check)
-schedule.every().day.at("13:30").do(Check)
-schedule.every().day.at("17:30").do(Check)
-schedule.every().day.at("21:30").do(Check)
-schedule.every().day.at("01:30").do(Check)
+schedule.every().day.at("00:00").do(Check)
+schedule.every().day.at("04:00").do(Check)
+schedule.every().day.at("08:00").do(Check)
+schedule.every().day.at("12:00").do(Check)
+schedule.every().day.at("16:00").do(Check)
+schedule.every().day.at("20:00").do(Check)
 
 
 # executes Check function for every 4 hours
@@ -76,8 +76,8 @@ print("************************")
 print("STARTED")
 print("************************")
 
-Check()
 
+Check()
 while True:
 	schedule.run_pending()
 	time.sleep(2)

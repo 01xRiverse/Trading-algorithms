@@ -148,7 +148,6 @@ for i in range(MACD.shape[0]):
 
 
 
-
 print("Balance:",balance)
 print("Trades:",trades)
 print("Hits:",hits)

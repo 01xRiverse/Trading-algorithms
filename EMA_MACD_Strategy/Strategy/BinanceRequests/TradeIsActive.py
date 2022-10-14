@@ -9,7 +9,7 @@ def TradeIsActive(client):
 
 	#checking if position is open 
 	#155 for testnet 158 for actual 
-	return True if positions[155]['initialMargin']!='0' else False
+	return True if positions[158]['initialMargin']!='0' else False
 
 
 
