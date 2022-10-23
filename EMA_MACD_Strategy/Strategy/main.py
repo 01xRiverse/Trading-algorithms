@@ -15,8 +15,8 @@ import warnings
 warnings.filterwarnings("ignore")
 
 #global variables
-Long="False"
-Short="False"
+Long=True
+Short=True
 
 def Check():
 	global Short,Long
@@ -35,14 +35,14 @@ def Check():
 
 	#checking for trade oppurtunities if there is no trade active
 	else:
-		if LongCall():
+		if  Short and LongCall():
 			MakeTrade(client,"LONG")
-			Long="True"
-			Short="False"
-		elif ShortCall():
+			Long=True
+			Short=False
+		elif Long and ShortCall():
 			MakeTrade(client,"SHORT")
-			Long="False"
-			Short="True"
+			Long=False
+			Short=True
 
 
 
